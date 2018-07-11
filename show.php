@@ -1,3 +1,14 @@
+<?php
+
+$pdo = new PDO("mysql:host=localhost; dbname=tasksphp", "root", "1234");
+$sql = "SELECT * FROM tasks WHERE id=:id";
+$statement = $pdo->prepare($sql);
+$statement->bindParam(":id", $_GET['id']);
+$statement->execute();
+$task = $statement->fetch(PDO::FETCH_ASSOC);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,9 +26,9 @@
         <div class="col-md-12">
             <h1>Show Task</h1>
             <hr>
-            <h3>Go to the store</h3>
+            <h3><?= $task['title']; ?></h3>
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet asperiores delectus, esse et ex excepturi laudantium libero maiores molestiae mollitia perspiciatis quisquam reprehenderit sunt? Architecto est magnam modi quo tempora!
+                <?= $task['content'];?>
             </p>
             <a href="/" class="btn btn-success">Go Back!</a>
         </div>

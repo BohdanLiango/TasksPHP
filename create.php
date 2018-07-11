@@ -15,15 +15,15 @@
         <div class="col-md-12">
             <h1>Create Task</h1>
             <hr>
-            <form action="">
+            <form action="store.php" method="post">
                 <h4 class="text-center">Title</h4>
                 <div class="form-group">
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" name="title">
                 </div>
 
                 <h4 class="text-center">Text</h4>
                 <div class="form-group">
-                    <textarea name="" class="form-control"></textarea>
+                    <textarea name="content" class="form-control"></textarea>
                 </div>
 
                 <div class="form-group">
@@ -31,6 +31,7 @@
                 </div>
 
             </form>
+            <a href="/" class="btn btn-success">Go Back!</a>
         </div>
     </div>
 </div>

@@ -6,16 +6,13 @@
  * Time: 13:38
  */
 
-$tasks = [
-        [
-                "id" => 14,
-                "title" => "Go to the Store",
-                "content" => "asasas"
-        ]
-];
-
-
-
+//1. Connect
+$pdo = new PDO("mysql:host=localhost; dbname=tasksphp", "root", "1234");
+//2. Prepare statement
+$sql = "SELECT * FROM tasks";
+$statement = $pdo->prepare($sql);
+$statement->execute();
+$tasks = $statement->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 
@@ -35,7 +32,7 @@ $tasks = [
     <div class="row">
         <div class="col-md-12">
             <h1>All Tasks</h1>
-            <a href="#" class="btn btn-success">Add Task</a>
+            <a href="create.php" class="btn btn-success">Add Task</a>
             <table class="table">
                 <thead>
                 <tr>
@@ -45,14 +42,17 @@ $tasks = [
                 </tr>
                 </thead>
                 <tbody>
+                <?php foreach ($tasks as $task):?>
                 <tr>
-                    <td>1</td>
-                    <td>Go to the store</td>
+                    <td><?= $task['id'];?></td>
+                    <td><?= $task['title'];?></td>
                     <td>
-                        <a href="#" class="btn btn-warning">Edit</a>
-                        <a href="#" class="btn btn-danger">Delete</a>
+                        <a href="show.php?id=<?= $task['id'];?>" class="btn btn-info">Show</a>
+                        <a href="edit.php?id=<?= $task['id'];?>" class="btn btn-warning">Edit</a>
+                        <a href="delete.php?id=<?= $task['id'];?>" class="btn btn-danger">Delete</a>
                     </td>
                 </tr>
+                <?php endforeach;?>
                 </tbody>
             </table>
         </div>

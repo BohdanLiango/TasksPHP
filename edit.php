@@ -1,3 +1,17 @@
+<?php
+
+$pdo = new PDO("mysql:host=localhost; dbname=tasksphp", "root", "1234");
+$sql = "SELECT * FROM tasks WHERE id=:id";
+$statement = $pdo->prepare($sql);
+$statement->bindParam(":id", $_GET['id']);
+$statement->execute();
+$task = $statement->fetch(PDO::FETCH_ASSOC);
+
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,15 +29,15 @@
         <div class="col-md-12">
             <h1>Create Task</h1>
             <hr>
-            <form action="">
+            <form action="update.php?id=<?= $task['id'];?>" method="post">
                 <h4 class="text-center">Title</h4>
                 <div class="form-group">
-                    <input type="text" class="form-control" value="Go to the store">
+                    <input type="text" name="title" class="form-control" value="<?= $task['title'];?>">
                 </div>
 
                 <h4 class="text-center">Text</h4>
                 <div class="form-group">
-                    <textarea name="" class="form-control"> bla bla bla</textarea>
+                    <textarea name="content" class="form-control"><?= $task['content'];?></textarea>
                 </div>
 
                 <div class="form-group">
@@ -31,6 +45,7 @@
                 </div>
 
             </form>
+            <a href="/" class="btn btn-success">Go Back!</a>
         </div>
     </div>
 </div>
